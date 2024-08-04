@@ -1,4 +1,4 @@
-# Scripts
+# Scripts to run
 
 ## SqlUtil Commands
 
@@ -6,10 +6,27 @@
 
 - dotnet run -- clearTables
 
-### Insert / DummyData
+### Insert DummyData (will clear tables before inserting)
 
 - dotnet run -- insertTestData
 
 ### show all users in table
 
 - dotnet run -- showUsers
+
+## this will run the server
+
+- dotnet run
+
+---
+
+# Folder Structure
+
+### User
+
+- types.cs contains the types used has one for making a user
+- userAuthRoutes.cs contains the routes for making a post user
+
+> [!NOTE]
+> still working on intergrating authenication
+> need to work on session tokens

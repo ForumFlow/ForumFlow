@@ -1,6 +1,7 @@
 using Microsoft.Data.Sqlite;
 using System;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ForumFlowServer.UserDao
 {
@@ -47,6 +48,49 @@ namespace ForumFlowServer.UserDao
                 command.ExecuteNonQuery();
             }
             connection.Close();
+        }
+
+
+        public string getUserSalt(string username)
+        {
+            var salt = "";
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT passwordSalt FROM Users WHERE username = @username";
+                command.Parameters.AddWithValue("@username", username);
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        Console.WriteLine(reader.GetString(0));
+                        salt = reader.GetString(0);
+                    }
+                }
+            }
+            connection.Close();
+            return salt;
+        }
+
+        public bool authenticateUser(string username, string passwordHash)
+        {
+            connection.Open();
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT * FROM Users WHERE username = @username AND passwordHash = @passwordHash";
+                command.Parameters.AddWithValue("@username", username);
+                command.Parameters.AddWithValue("@passwordHash", passwordHash);
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        connection.Close();
+                        return true;
+                    }
+                    connection.Close();
+                    return false;
+                }
+            }
         }
 
 

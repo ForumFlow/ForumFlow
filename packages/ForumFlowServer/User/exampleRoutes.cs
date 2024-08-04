@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace ForumFlow.Controllers
+namespace ForumFlow.exampleControllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("products")]
     public class ItemsController : ControllerBase
     {
         private static readonly List<Item> items = new List<Item>
@@ -14,14 +14,14 @@ namespace ForumFlow.Controllers
             new Item { Id = 3, Name = "Item 3" }
         };
 
-        // GET: /items
+        // GET: /products
         [HttpGet]
         public ActionResult<List<Item>> GetAll()
         {
             return items;
         }
 
-        // GET: /items/{id}
+        // GET: /products/{id}
         [HttpGet("{id}")]
         public ActionResult<Item> Get(int id)
         {

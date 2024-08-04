@@ -1,29 +1,9 @@
-// var builder = WebApplication.CreateBuilder(args);
-
-// // Add services to the container.
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
-
-// var app = builder.Build();
-
-// // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-
-// app.UseHttpsRedirection();
-
-// // Map routes
-// app.MapWeatherForecastRoutes();
-
-// app.Run();
-
 using ForumFlowServer.CreateTables;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+
 using System;
 
 namespace MyWebApplication
@@ -62,11 +42,31 @@ namespace MyWebApplication
                 // Add services to the container.
                 builder.Services.AddControllers();
 
+                // add server side sessions
+                builder.Services.AddDistributedMemoryCache();
+
+                builder.Services.AddSession(options =>
+                {
+                    options.IdleTimeout = TimeSpan.FromMinutes(30);
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.IsEssential = true;
+                });
+
+
+
+
+
+
                 var app = builder.Build();
 
                 // Configure the HTTP request pipeline.
                 app.UseAuthorization();
                 app.MapControllers();
+
+                // server side sessions
+                app.UseSession();
+
+
                 Console.WriteLine("Running Server..");
                 app.Run();
             }
