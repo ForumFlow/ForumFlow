@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "glIP/9YKJk4U9vMXkWCyAMOMixpaWDcWZuS+Q3jLHmU=",
+  "Source": "ForumFlowServer",
+  "BasePath": "_content/ForumFlowServer",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

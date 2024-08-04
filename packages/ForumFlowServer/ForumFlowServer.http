@@ -1,0 +1,6 @@
+@ForumFlowServer_HostAddress = http://localhost:5152
+
+GET {{ForumFlowServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "packages", "packages", "{1DF16EAC-E3D9-46B8-ABC8-A643479B874E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumFlowServer", "packages\ForumFlowServer\ForumFlowServer.csproj", "{7A885C5E-7B17-4BE5-B3E5-89393D4D00C4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A885C5E-7B17-4BE5-B3E5-89393D4D00C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A885C5E-7B17-4BE5-B3E5-89393D4D00C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A885C5E-7B17-4BE5-B3E5-89393D4D00C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A885C5E-7B17-4BE5-B3E5-89393D4D00C4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7A885C5E-7B17-4BE5-B3E5-89393D4D00C4} = {1DF16EAC-E3D9-46B8-ABC8-A643479B874E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9AA4B41D-2AB4-4BC4-A025-E51ECBAE763C}
+	EndGlobalSection
+EndGlobal
