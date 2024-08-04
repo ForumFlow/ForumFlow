@@ -7,9 +7,9 @@ namespace ForumFlowServer.CreateTables
     public class SqlUtil
     {
         // private readonly string dbSource = "Data Source=forumflow.db";
-        private readonly string createTablesCmd = "SqlLiteUtils/createTables.txt";
+        private readonly string createTablesCmd = "SqlUtils/createTables.txt";
 
-        private readonly string createTestDataCmd = "SqlLiteUtils/DummyData.txt";
+        private readonly string createTestDataCmd = "SqlUtils/DummyData.txt";
 
         private static SqliteConnection connection = new SqliteConnection("Data Source=forumflow.db");
 
@@ -25,7 +25,7 @@ namespace ForumFlowServer.CreateTables
                 connection.Open();
                 command.CommandText = sqlCommand;
                 command.ExecuteNonQuery();
-                connection.Open();
+                connection.Close();
             }
 
         }
