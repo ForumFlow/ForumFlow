@@ -20,17 +20,56 @@
 
 // app.Run();
 
+using ForumFlowServer.CreateTables;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace MyWebApplication
+{
+    class Program
+    {
+        private static SqlUtil db = new SqlUtil();
+        static void Main(string[] args)
+        {
 
-// Add services to the container.
-builder.Services.AddControllers();
+            if (args.Length == 1)
+            {
+                switch (args[0])
+                {
+                    case "clearTables":
+                        Console.WriteLine("Recreating Tables..");
+                        db.createTables();
+                        break;
 
-var app = builder.Build();
+                    case "insertTestData":
+                        Console.WriteLine("deleteing tables and inserting test data..");
+                        db.createTables();
+                        db.createTestinData();
+                        break;
+                    case "showUsers":
+                        db.showAllUsers();
+                        break;
+                }
 
-// Configure the HTTP request pipeline.
-app.UseAuthorization();
+            }
+            else
+            {
 
-app.MapControllers();
+                var builder = WebApplication.CreateBuilder(args);
 
-app.Run();
+                // Add services to the container.
+                builder.Services.AddControllers();
+
+                var app = builder.Build();
+
+                // Configure the HTTP request pipeline.
+                app.UseAuthorization();
+                app.MapControllers();
+                Console.WriteLine("Running Server..");
+                app.Run();
+            }
+        }
+    }
+}
