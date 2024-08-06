@@ -3,12 +3,12 @@ using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
-namespace ForumFlowServer.UserDao
+namespace UserDao
 {
     public class UserDao
     {
+        // NOTE: not the best practice to hardcode the connection string but for the sake of simplicity we will do it here should be in a constructor
         private static SqliteConnection connection = new SqliteConnection("Data Source=forumflow.db");
-
 
         public bool userExists(string username)
         {
