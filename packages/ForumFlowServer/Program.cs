@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using DotNetEnv;
-using JWT;
+using ForumFlowServer.JWT;
 
 using System;
 
@@ -13,7 +13,6 @@ namespace MyWebApplication
     class Program
     {
         private static SqlUtil db = new SqlUtil();
-        private static JWT.JWT jwt = new JWT.JWT();
         static void Main(string[] args)
         {
 
@@ -38,13 +37,16 @@ namespace MyWebApplication
                         var header = "{\"alg\": \"HS256\", \"typ\": \"JWT\"}";
                         var payload = "{\"sub\": \"1234567890\", \"name\": \"John Doe\", \"iat\": 1516239022}";
                         var secret = "your-256-bit-secret";
-
-                        var token = JWT.JWT.CreateToken(header, payload, secret);
+                        var token = JWT.CreateToken(header, payload, secret);
                         Console.WriteLine("JWT: " + token);
-                        var isValid = JWT.JWT.ValidateToken(token, secret);
+                        var isValid = JWT.ValidateToken(token, secret);
                         if (isValid)
                         {
                             Console.WriteLine("Token is valid");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Token is invalid");
                         }
                         break;
 

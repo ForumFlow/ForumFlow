@@ -3,7 +3,10 @@ using UserDao;
 using ForumFlowServer.HashUtils;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Schema;
+using ForumFlowServer.JWT;
 
+using DotNetEnv;
 namespace ForumFlow.userAuthenticationControllers
 {
     [ApiController]
@@ -27,15 +30,6 @@ namespace ForumFlow.userAuthenticationControllers
             }
         }
 
-        // GET: /use r
-        // [HttpGet]
-        // public ActionResult<userAuthenticationControllers/> GetAll()
-        // {
-        //     return items;
-        // }
-
-        // GET: /user/{id}
-
         // curl -X POST http://localhost:5152/user/createUser -H "Content-Type: application/json" -d '{
         //   "username": "exampleUser",
         //   "password": "examplePassword",
@@ -46,8 +40,6 @@ namespace ForumFlow.userAuthenticationControllers
 
         // POST: /user/{username}/{passwordHash}
         // implement authentication with this endpoint
-
-
 
         [HttpPost("authenticateUser")]
         public ActionResult<newUsersPostRequest> Authenticate([FromBody] newUsersPostRequest request)
@@ -68,8 +60,23 @@ namespace ForumFlow.userAuthenticationControllers
                 var passwordHash = GetHash(request.password + salt);
                 if (userDao.authenticateUser(request.username, passwordHash))
                 {
-                    Console.WriteLine("Good Request");
-                    return Ok("User authenticated successfully");
+                    Env.Load();
+                    var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET");
+                    if (secretKey == null)
+                    {
+                        Console.WriteLine("JWT_SECRET not found in .env file");
+                        return BadRequest("JWT_SECRET not found in .env file");
+                    }
+                    else
+                    {
+                        var token = JWT.CreateToken("{\"alg\": \"HS256\", \"typ\": \"JWT\"}", "{\"sub\": \"" + request.username + "\", \"name\": \"" + request.firstName + " " + request.lastName + "\", \"iat\": " + DateTime.Now.Ticks + "}", secretKey);
+
+                        Console.WriteLine("Good Request");
+                        Console.WriteLine("Token: " + token);
+                        return Ok(token);
+                        // Console.WriteLine("Good Request");
+                        // return Ok("User authenticated successfully");
+                    }
                 }
                 else
                 {
@@ -96,12 +103,29 @@ namespace ForumFlow.userAuthenticationControllers
             }
             else
             {
-
                 var salt = GetSalt();
                 var passwordHash = GetHash(request.password + salt);
-                userDao.createUser(request.username, salt, passwordHash, request.firstName, request.lastName);
-                Console.WriteLine("Good Request");
-                return Ok("User created successfully");
+                Env.Load();
+                var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET");
+                if (secretKey == null)
+                {
+                    Console.WriteLine("JWT_SECRET not found in .env file");
+                    return BadRequest("JWT_SECRET not found in .env file");
+                }
+                else
+                {
+
+                    var token = JWT.CreateToken("{\"alg\": \"HS256\", \"typ\": \"JWT\"}", "{\"sub\": \"" + request.username + "\", \"name\": \"" + request.firstName + " " + request.lastName + "\", \"iat\": " + DateTime.Now.Ticks + "}", secretKey);
+
+                    userDao.createUser(request.username, salt, passwordHash, request.firstName, request.lastName);
+                    Console.WriteLine("Good Request");
+                    Console.WriteLine("Token: " + token);
+                    return Ok(token);
+
+
+                }
+
+
                 // return CreatedAtAction("GetUser", new { id = user.Id }, user);
 
             }

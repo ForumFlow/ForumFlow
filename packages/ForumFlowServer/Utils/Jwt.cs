@@ -3,10 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Newtonsoft.Json;
 
-
-
-
-namespace JWT
+namespace ForumFlowServer.JWT
 {
     public class JWT
     {
