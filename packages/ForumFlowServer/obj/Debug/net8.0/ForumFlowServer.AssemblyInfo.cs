@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ForumFlowServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+744e24b6353fe544ac50d20ede2f6e635e1c612d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee46afa56bd924b0dfe9df3de0f73ce5a304ed78")]
 [assembly: System.Reflection.AssemblyProductAttribute("ForumFlowServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ForumFlowServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

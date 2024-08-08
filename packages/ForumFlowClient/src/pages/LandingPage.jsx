@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Registration from './RegistrationPage';
-import Login from './LoginPage';
-import '../land.css';
+import React, { useState } from "react";
+import RegistrationPage from "./RegistrationPage";
+import Login from "./LoginPage";
+import "../land.css";
 
 function LandingPage() {
   const [showRegistration, setShowRegistration] = useState(false);
@@ -14,13 +14,13 @@ function LandingPage() {
   const handleLoginClick = (e) => {
     e.preventDefault();
     setShowLogin(true);
-    };
-if(showLogin){
+  };
+  if (showLogin) {
     return <Login />;
-}
+  }
 
   if (showRegistration) {
-    return <Registration />;
+    return <RegistrationPage />;
   }
 
   return (
@@ -29,10 +29,18 @@ if(showLogin){
         <nav>
           <div className="logo">ForumFlow</div>
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#register" onClick={handleRegisterClick}>Register</a></li>
-            <li><a href="#login" onClick={handleLoginClick}>Login</a></li>
+            <li>
+              <a href="#home">Home</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="/user/create">Register</a>
+            </li>
+            <li>
+              <a href="/user/login">Login</a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -42,7 +50,9 @@ if(showLogin){
           <div className="hero-content">
             <h1 className="animate-text">Welcome to ForumFlow</h1>
             <p className="animate-text">Presentation feedback, done better</p>
-            <a href="#signup" className="cta-button">Get Started</a>
+            <a href="#signup" className="cta-button">
+              Get Started
+            </a>
           </div>
         </section>
 
@@ -52,7 +62,9 @@ if(showLogin){
             <div className="about-list">
               <h3>Product</h3>
               <ul>
-                <li><a href="#">Website Templates</a></li>
+                <li>
+                  <a href="#">Website Templates</a>
+                </li>
                 {/* Add more product list items here */}
               </ul>
             </div>
