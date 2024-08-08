@@ -81,7 +81,10 @@ namespace ForumFlow.userAuthenticationControllers
             // how to set a cookie in .net
             Response.Cookies.Append("jwt", token, new CookieOptions
             {
-              HttpOnly = true
+              HttpOnly = false,
+              Secure = false,
+              // SameSite = SameSiteMode.Strict,
+              Expires = DateTimeOffset.UtcNow.AddDays(1)
             });
             Console.WriteLine("Good Request");
             Console.WriteLine("Token: " + token);

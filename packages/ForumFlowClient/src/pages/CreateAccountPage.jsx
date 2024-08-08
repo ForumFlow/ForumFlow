@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateAccountPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirsName] = useState("");
   const [lastName, setLastName] = useState("");
+  let navigate = useNavigate();
   const handleCreateAccount = async () => {
-    const url = "http://localhost:5152/user/createUser";
+    const url = "http://localhost:5152/user/create";
     if (
       username === "" ||
       password === "" ||
@@ -35,17 +37,14 @@ export default function CreateAccountPage() {
         if (response.ok) {
           console.log("Success");
           alert("Account created successfully");
-        document.cookie = `Authorization=${response.headers.get("Authorization")}`;
+          document.cookie = `Authorization=${response.headers.get(
+            "Authorization"
+          )}`;
 
-          response.body().then((text) => {
-            console.log(text);
-          
-          });
-          
-
-          // setTimeout(() => {
-          //   window.location.href = window.location.origin + "/user/home";
-          // }, 1000);
+          setTimeout(() => {
+            // window.location.href = window.location.origin + "/user/home";
+            navigate("/", { replace: true });
+          }, 1000);
         }
 
         if (!response.ok) {
