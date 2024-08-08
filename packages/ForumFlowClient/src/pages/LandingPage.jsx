@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import RegistrationPage from "./RegistrationPage";
-import Login from "./LoginPage";
 import "../land.css";
 
 function LandingPage() {

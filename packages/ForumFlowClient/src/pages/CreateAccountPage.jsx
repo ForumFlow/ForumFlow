@@ -1,34 +1,79 @@
-import React from "react";
-import { redirect } from "react-router-dom";
+import React, { useState } from "react";
 
-export default function RegistrationPage() {
+export default function CreateAccountPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirsName] = useState("");
+  const [lastName, setLastName] = useState("");
   const handleCreateAccount = async () => {
     const url = "http://localhost:5152/user/createUser";
+    if (
+      username === "" ||
+      password === "" ||
+      firstName === "" ||
+      lastName === ""
+    ) {
+      alert("Please fill in all fields");
+      return;
+    }
     const data = {
-      username: "exampleUser1",
-      password: "examplePassword",
-      firstName: "John",
-      lastName: "Doe",
+      username: username,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
     };
 
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data), // Correctly stringify the JSON object
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // Correctly stringify the JSON object
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          console.log("Success");
+          alert("Account created successfully");
+        document.cookie = `Authorization=${response.headers.get("Authorization")}`;
+
+          response.body().then((text) => {
+            console.log(text);
+          
+          });
+          
+
+          // setTimeout(() => {
+          //   window.location.href = window.location.origin + "/user/home";
+          // }, 1000);
+        }
+
+        if (!response.ok) {
+          // When the server responds with a status outside the range 200-299,
+          // we get the response text and handle it in another .then()
+          return response.text().then((text) => {
+            if (text === "User already exists") {
+              alert("Username already exists");
+            } else {
+              console.log("Failed:", text);
+            }
+            throw new Error(text); // Optional: re-throw to handle it in a .catch() if needed
+          });
+        }
+        // If the response is OK, we handle the token or other success response
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+    // if (!response.ok) {
+    //   if (response.text() === "User already exists") {
+    //     alert("Username already exists");
+    //   }
+    // }
 
-      const result = await response.json();
-      console.log("Success:", result);
-    } catch (error) {
-      console.error("There was an error!", error);
-    }
+    // const result = await response.json();
+    // console.log("Success:", result);
   };
 
   return (
@@ -56,6 +101,8 @@ export default function RegistrationPage() {
               </label>
               <div className="mt-2">
                 <input
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   id="email"
                   name="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -72,6 +119,8 @@ export default function RegistrationPage() {
               </label>
               <div className="mt-2">
                 <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   id="email"
                   name="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -88,6 +137,8 @@ export default function RegistrationPage() {
               </label>
               <div className="mt-2">
                 <input
+                  value={firstName}
+                  onChange={(e) => setFirsName(e.target.value)}
                   id="email"
                   name="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -104,6 +155,8 @@ export default function RegistrationPage() {
               </label>
               <div className="mt-2">
                 <input
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   id="email"
                   name="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
