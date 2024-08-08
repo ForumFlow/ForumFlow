@@ -42,14 +42,14 @@ namespace ForumFlow.userAuthenticationControllers
     // implement authentication with this endpoint
     [HttpGet("testToken")]
     [ValidateJwt]
-    public IActionResult GetSecureData()
+    public IActionResult testToken()
     {
       return Ok("This is a secure data response.");
     }
 
 
-    [HttpPost("authenticateUser")]
-    public ActionResult<newUsersPostRequest> Authenticate([FromBody] newUsersPostRequest request)
+    [HttpPost("login")]
+    public ActionResult<newUsersPostRequest> Login([FromBody] newUsersPostRequest request)
     {
       if (request == null || request.username == null || request.password == null)
       {
@@ -78,6 +78,14 @@ namespace ForumFlow.userAuthenticationControllers
           {
             var token = JWT.CreateToken("{\"alg\": \"HS256\", \"typ\": \"JWT\"}", "{\"sub\": \"" + request.username + "\", \"name\": \"" + request.firstName + " " + request.lastName + "\", \"iat\": " + DateTime.Now.Ticks + "}", secretKey);
 
+            // how to set a cookie in .net
+            Response.Cookies.Append("jwt", token, new CookieOptions
+            {
+              HttpOnly = false,
+              Secure = false,
+              // SameSite = SameSiteMode.Strict,
+              Expires = DateTimeOffset.UtcNow.AddDays(1)
+            });
             Console.WriteLine("Good Request");
             Console.WriteLine("Token: " + token);
             return Ok(token);
@@ -92,7 +100,7 @@ namespace ForumFlow.userAuthenticationControllers
     }
 
 
-    [HttpPost("createUser")]
+    [HttpPost("create")]
     public ActionResult<newUsersPostRequest> Create([FromBody] newUsersPostRequest request)
     {
       if (request == null || request.username == null || request.password == null || request.firstName == null || request.lastName == null)
@@ -125,6 +133,13 @@ namespace ForumFlow.userAuthenticationControllers
           userDao.createUser(request.username, salt, passwordHash, request.firstName, request.lastName);
           Console.WriteLine("Good Request");
           Console.WriteLine("Token: " + token);
+          Response.Cookies.Append("jwt", token, new CookieOptions
+          {
+            HttpOnly = true, // Important: Makes the cookie inaccessible to JavaScript
+            Secure = true, // Transmits the cookie over HTTPS only
+            SameSite = SameSiteMode.Strict, // CSRF protection
+            Expires = DateTimeOffset.UtcNow.AddDays(1) // Set your cookie expiration as needed
+          });
           return Ok(token);
 
 

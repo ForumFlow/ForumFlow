@@ -1,14 +1,14 @@
 import "./App.css";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import UserHomePage from "./pages/UserHomePage";
 import NewPresentation from "./components/AddPresentation";
 import Presentation from "./components/Presentation";
 import Comment from "./components/comment";
 import AddComment from "./components/AddComment";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
 import "./index.css";
 
 function App() {
@@ -46,7 +46,8 @@ function App() {
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="user">
           <Route path="login" element={<LoginPage />} />
-          <Route path="create" element={<RegistrationPage />} />
+          <Route path="create" element={<CreateAccountPage />} />
+          <Route path="home" element={<UserHomePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

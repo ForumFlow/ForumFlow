@@ -1,6 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  let navigate = useNavigate();
+
+  const handleLoginAccount = async () => {
+    const url = "http://localhost:5152/user/login";
+    if (username === "" || password === "") {
+      alert("Please fill in all fields");
+      return;
+    }
+    const data = {
+      username: username,
+      password: password,
+    };
+
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // Correctly stringify the JSON object
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          console.log("Success");
+          alert("Account created successfully");
+          document.cookie = `Authorization=${response.headers.get(
+            "Authorization"
+          )}`;
+
+          setTimeout(() => {
+            // window.location.href = window.location.origin + "/user/home";
+            navigate("/user/home", { replace: true });
+          }, 1000);
+        }
+
+        if (!response.ok) {
+          // When the server responds with a status outside the range 200-299,
+          // we get the response text and handle it in another .then()
+          return response.text().then((text) => {
+            if (text === "User already exists") {
+              alert("Username already exists");
+            } else {
+              console.log("Failed:", text);
+            }
+            throw new Error(text); // Optional: re-throw to handle it in a .catch() if needed
+          });
+        }
+        // If the response is OK, we handle the token or other success response
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    // if (!response.ok) {
+    //   if (response.text() === "User already exists") {
+    //     alert("Username already exists");
+    //   }
+    // }
+
+    // const result = await response.json();
+    // console.log("Success:", result);
+  };
+
   return (
     /*
   This example requires some changes to your config:
@@ -49,6 +115,8 @@ export default function Login() {
               <div className="mt-2">
                 <input
                   id="email"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   name="email"
                   type="email"
                   required
@@ -77,6 +145,8 @@ export default function Login() {
               </div>
               <div className="mt-2">
                 <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   name="password"
                   type="password"
@@ -90,6 +160,7 @@ export default function Login() {
             <div>
               <button
                 type="submit"
+                onClick={handleLoginAccount}
                 className=" w-full
                 flex
                 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -102,7 +173,7 @@ export default function Login() {
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
             <a
-              href="#"
+              href="user/create"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Register now

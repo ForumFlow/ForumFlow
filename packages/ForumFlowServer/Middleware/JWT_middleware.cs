@@ -12,8 +12,9 @@ public class ValidateJwtAttribute : Attribute, IAsyncActionFilter
 {
   public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
   {
-    var token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-
+    var cookie = context.HttpContext.Request.Cookies["jwt"];
+    Console.WriteLine("cookies", context.HttpContext.Request.Cookies);
+    var token = cookie != null ? cookie.Split(" ").LastOrDefault() : null;
     if (token == null)
     {
       context.HttpContext.Response.StatusCode = 400; // BadRequest
