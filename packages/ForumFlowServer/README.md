@@ -1,5 +1,9 @@
 # Scripts to run
 
+## Rebuild the project
+
+- dotnet build
+
 ## SqlUtil Commands
 
 ### Create/Recreate Tables
