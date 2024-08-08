@@ -4,8 +4,8 @@ import NewPresentation from './components/AddPresentation';
 import Presentation from './components/Presentation';
 import Comment from './components/comment';
 import AddComment from './components/AddComment';
-import LandingPage from './components/LandingPage';
-import Registration from './components/Registration';
+import LandingPage from './pages/LandingPage';
+import Registration from './pages/RegistrationPage';
 import './index.css';
 
 function App() {
