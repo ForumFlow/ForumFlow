@@ -10,6 +10,7 @@ using System;
 
 namespace MyWebApplication
 {
+
   class Program
   {
     private static SqlUtil db = new SqlUtil();
@@ -79,6 +80,13 @@ namespace MyWebApplication
 
         // server side sessions
         app.UseSession();
+        app.UseCors
+        (options => options.WithOrigins("http://localhost:5173")
+          .AllowAnyMethod()
+          .AllowAnyHeader()
+          .AllowCredentials()
+        );
+
 
 
         Console.WriteLine("Running Server..");
@@ -87,3 +95,4 @@ namespace MyWebApplication
     }
   }
 }
+

@@ -1,16 +1,38 @@
 import React from "react";
+import { redirect } from "react-router-dom";
 
 export default function RegistrationPage() {
+  const handleCreateAccount = async () => {
+    const url = "http://localhost:5152/user/createUser";
+    const data = {
+      username: "exampleUser1",
+      password: "examplePassword",
+      firstName: "John",
+      lastName: "Doe",
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data), // Correctly stringify the JSON object
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Success:", result);
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+  };
+
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -24,7 +46,7 @@ export default function RegistrationPage() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <div className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -36,9 +58,6 @@ export default function RegistrationPage() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -55,9 +74,6 @@ export default function RegistrationPage() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -74,9 +90,6 @@ export default function RegistrationPage() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -93,9 +106,6 @@ export default function RegistrationPage() {
                 <input
                   id="email"
                   name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -103,13 +113,13 @@ export default function RegistrationPage() {
 
             <div>
               <button
-                type="submit"
+                onClick={handleCreateAccount}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Create your account
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
