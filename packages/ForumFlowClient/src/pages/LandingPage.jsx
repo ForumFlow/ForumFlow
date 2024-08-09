@@ -1,9 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../land.css";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
   const [showRegistration, setShowRegistration] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // TODO - Uncomment this code when the login page is ready
+
+    const jwt = Cookies.get("jwt");
+    async function verifyUser() {
+      const url = "http://localhost:5152/user/verify";
+      await fetch(url, {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.ok) {
+            navigate("/user/home", { replace: true });
+          } else {
+            Cookies.remove("jwt");
+            console.log("User not verified");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
+    if (jwt) {
+      verifyUser();
+    }
+  }, []);
 
   const handleRegisterClick = (e) => {
     e.preventDefault();

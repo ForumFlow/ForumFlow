@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -29,9 +30,12 @@ export default function Login() {
         if (response.ok) {
           console.log("Success");
           alert("Account created successfully");
-          document.cookie = `Authorization=${response.headers.get(
-            "Authorization"
-          )}`;
+          // Cookies.set("jwt", response.headers.get("Authorization"));
+          console.log(response.headers.get("Authorization"));
+          response.text().then((text) => {
+            Cookies.set("jwt", text);
+            console.log(text);
+          });
 
           setTimeout(() => {
             // window.location.href = window.location.origin + "/user/home";
@@ -104,7 +108,7 @@ export default function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <div className="space-y-6">
             <div>
               <label
                 htmlFor="email"
@@ -118,9 +122,6 @@ export default function Login() {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -168,13 +169,17 @@ export default function Login() {
                 Sign in
               </button>
             </div>
-          </form>
+          </div>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
             <a
-              href="user/create"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              // href="user/create"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/user/create", { replace: true });
+              }}
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 hover:cursor-pointer"
             >
               Register now
             </a>
