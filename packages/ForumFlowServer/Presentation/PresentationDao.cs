@@ -4,13 +4,13 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using PresentationApp;
 
+
 namespace PresentationDao{
 
 
+
+
     public class PresentationDao{
-
-
-
 
         private static SqliteConnection connection = new SqliteConnection("Data Source=forum.db");
 
@@ -27,8 +27,6 @@ namespace PresentationDao{
         }
 
 
-
-
         public void CreatePresentation(int presentationID, string title, string description, DateTime createdDate){
             connection.Open();
             using (var command = connection.CreateCommand()){
@@ -42,15 +40,10 @@ namespace PresentationDao{
             connection.Close();
         }
 
-
-
-
-        public Presentation GetPresenation(int presentationID){
+        public Presentation GetPresentation(int presentationID){
             Presentation presentation = null;
 
-
             connection.Open();
-
 
             using (var command = connection.CreateCommand()){
                 command.CommandText = "SELECT PresentationID, Title, Description, CreateDate FROM Presentations WHERE PresentationID = @presentationID";
@@ -68,14 +61,13 @@ namespace PresentationDao{
                 connection.Close();
             }
             return presentation;
-
-
-           
+          
         }
 
 
-        public void DeletePresentation(int presentationID){
 
+
+        public void DeletePresentation(int presentationID){
 
             connection.Open();
             using (var command = connection.CreateCommand()){
@@ -85,13 +77,13 @@ namespace PresentationDao{
             }
             connection.Close();
 
-
         }
+
+
 
 
         public void UpdatePresentation(int presentationID, string title, string description, DateTime updateDate){
             connection.Open();
-
 
             using (var command = connection.CreateCommand()){
                 command.CommandText = "UPDATE Presentation SET Title = @title, Description = @description, UpdateDate = @updateDate WHERE PresentaionID = @presentationID";
@@ -104,15 +96,7 @@ namespace PresentationDao{
             connection.Close();
         }
 
-
-       
-
-
-
-
     }
-
-
 
 
 }
