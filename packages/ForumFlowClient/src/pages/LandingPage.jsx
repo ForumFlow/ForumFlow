@@ -57,17 +57,22 @@ function LandingPage() {
         <section id="about">
           <h2>About Us</h2>
           <div className="about-content">
-            <div className="about-list">
-              <h3>Product</h3>
+          <div className="about-list">
+              <h3>Purpose</h3>
+              <p>Ever been to a presentation, only to get shown a generic survey at the end of it? Traditional survey systems lack a feeling of interactivity,
+                and often don't provide enough detail for the presenter to improve.
+              </p>
+              <p>ForumFlow is here to make presentation feedback better. We provide a presentation feedback system that is more collaborative and conversational for viewers,
+                allowing them to ask questions and provide feedback in real-time.
+              </p>
               <ul>
-                <li>
-                  <a href="#">Website Templates</a>
-                </li>
-                {/* Add more product list items here */}
+                <li>Allows viewers to ask questions and provide feedback in real-time</li>
+                <li>Provides a more interactive and conversational feedback experience</li>
+                <li>Allows viewers to leave comments, upvote and downvote, showing the Presenter which topics or areas of improvement are most popular</li>
               </ul>
+                {/* Add more product list items here */}
+              </div>
             </div>
-            {/* Add more about sections here */}
-          </div>
         </section>
 
         <section id="signup">
@@ -83,7 +88,7 @@ function LandingPage() {
       </main>
 
       <footer>
-        <p>&copy; 2024 MyBrand. All rights reserved.</p>
+        <p>&copy; 2024 ForumFlow. All rights reserved.</p>
       </footer>
     </>
   );

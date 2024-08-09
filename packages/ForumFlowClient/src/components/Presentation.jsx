@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default function Presentation(props) {
+export default function Presentation({ author, text, title }) {
     return (
         <div>
-            <h1>{props.author}</h1>
-            <h1>{props.title}</h1>
-            <p>{props.text}</p>
+        <h3>{title}</h3>
+        <p>{text}</p>
+        <p><em>by {author}</em></p>
         </div>
     );
 }
