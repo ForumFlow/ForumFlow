@@ -7,6 +7,7 @@ using System.Xml.Schema;
 using ForumFlowServer.JWT;
 
 using DotNetEnv;
+using System.Net;
 namespace ForumFlow.userAuthenticationControllers
 {
   [ApiController]
@@ -40,7 +41,7 @@ namespace ForumFlow.userAuthenticationControllers
 
     // POST: /user/{username}/{passwordHash}
     // implement authentication with this endpoint
-    [HttpGet("testToken")]
+    [HttpGet("verify")]
     [ValidateJwt]
     public IActionResult testToken()
     {
