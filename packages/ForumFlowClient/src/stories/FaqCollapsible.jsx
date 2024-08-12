@@ -12,7 +12,7 @@ export const FaqCollapsible = ({
   // TODO logic for collapsible
   return (
     <div className="pl-3 py-5 border-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 max-w-3xl">
-      <details className="group" open={true}>
+      <details className="group">
         <summary className="flex justify-between items-center font-medium cursor-pointer list-none ">
           {edit ? (
             <input
