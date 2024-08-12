@@ -1,0 +1,42 @@
+INSERT INTO Users (username, passwordSalt, passwordHash, firstName, lastName)
+VALUES 
+('johndoe', 'salt123', 'hash123', 'John', 'Doe'),
+('janedoe', 'salt456', 'hash456', 'Jane', 'Doe');
+
+INSERT INTO Presentation (authorId, title, description)
+VALUES 
+(1, 'Introduction to C#', 'A comprehensive introduction to C# programming language.'),
+(2, 'Advanced SQL Queries', 'Deep dive into advanced SQL querying techniques.');
+
+INSERT INTO Comment (presentationId, comment, depth, upCount, downCount, commentParent)
+VALUES 
+(1, 'Great introduction! Very detailed.', 0, 10, 1, NULL),
+(1, 'I agree with the above comment.', 0, 5, 0, 1),
+(2, 'Very helpful for complex queries.', 1, 8, 2, NULL);
+
+
+INSERT INTO Faq (presentationID, question, answer)
+VALUES 
+(1, 'What is the purpose of the language?', 'C# is used for developing a wide range of applications, from web and desktop applications to cloud-based services.'),
+(2, 'How can I optimize SQL queries?', 'Use indexes appropriately, avoid SELECT *, and ensure your queries are written to leverage efficient execution plans.');
+
+
+SELECT * FROM Users;
+
+
+SELECT * FROM Presentation;
+
+
+SELECT * FROM Comment WHERE presentationId = 1;
+
+
+SELECT * FROM Faq WHERE presentationID = 2;
+
+
+UPDATE Presentation
+SET title = 'Updated Presentation Title'
+WHERE presentationId = 1;
+
+
+DELETE FROM Comment
+WHERE ID = 1;

@@ -15,19 +15,18 @@ namespace ForumFlow.PresentationControllers
         [HttpPost("create")]
         public ActionResult Create([FromBody] PresentationRequest request)
         {
-            if (request == null || request.PresentationID <= 0 || string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Description))
+            if (request == null || request.presentationId <= 0 || string.IsNullOrEmpty(request.title) || string.IsNullOrEmpty(request.description) || request.authorId <= 0)
             {
                 return BadRequest("Invalid request data");
             }
 
 
-            if (presentationDao.PresentationExists(request.PresentationID))
+            if (presentationDao.PresentationExists(request.presentationId))
             {
                 return BadRequest("Presentation already exists");
             }
 
-
-            presentationDao.CreatePresentation(request.PresentationID, request.Title, request.Description, request.CreatedDate);
+            presentationDao.CreatePresentation(request.presentationId, request.title, request.description, request.authorId);
             return Ok("Presentation created successfully");
         }
 
@@ -55,19 +54,19 @@ namespace ForumFlow.PresentationControllers
         [HttpPut("update")]
         public ActionResult Update([FromBody] PresentationRequest request)
         {
-            if (request == null || request.PresentationID <= 0 || string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Description))
+            if (request == null || request.presentationId <= 0 || string.IsNullOrEmpty(request.title) || string.IsNullOrEmpty(request.description) || request.authorId <= 0)
             {
                 return BadRequest("Invalid request data");
             }
 
 
-            if (!presentationDao.PresentationExists(request.PresentationID))
+            if (!presentationDao.PresentationExists(request.presentationId))
             {
                 return NotFound("Presentation not found");
             }
 
 
-            presentationDao.UpdatePresentation(request.PresentationID, request.Title, request.Description, request.CreatedDate);
+            presentationDao.UpdatePresentation(request.presentationId, request.title, request.description, request.authorId);
             return Ok("Presentation updated successfully");
         }
 
