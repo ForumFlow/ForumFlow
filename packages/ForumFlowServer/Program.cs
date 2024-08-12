@@ -5,6 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using DotNetEnv;
 using ForumFlowServer.JWT;
+using Microsoft.Data.Sqlite;
 
 using System;
 
@@ -33,6 +34,11 @@ namespace MyWebApplication
             break;
           case "showUsers":
             db.showAllUsers();
+            break;
+
+          case "showAllPresentations":
+            Console.WriteLine("Showing all presentations...");
+            db.showAllPresentations();
             break;
           case "testToken":
             var header = "{\"alg\": \"HS256\", \"typ\": \"JWT\"}";

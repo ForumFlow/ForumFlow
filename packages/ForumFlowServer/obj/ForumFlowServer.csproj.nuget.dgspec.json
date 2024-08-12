@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj": {}
+    "C:\\Users\\jazko\\OneDrive\\Desktop\\VSCode\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj": {
+    "C:\\Users\\jazko\\OneDrive\\Desktop\\VSCode\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj",
+        "projectUniqueName": "C:\\Users\\jazko\\OneDrive\\Desktop\\VSCode\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj",
         "projectName": "ForumFlowServer",
-        "projectPath": "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj",
-        "packagesPath": "C:\\Users\\Charlie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\obj\\",
+        "projectPath": "C:\\Users\\jazko\\OneDrive\\Desktop\\VSCode\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj",
+        "packagesPath": "C:\\Users\\jazko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jazko\\OneDrive\\Desktop\\VSCode\\ForumFlow\\packages\\ForumFlowServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Charlie\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\jazko\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

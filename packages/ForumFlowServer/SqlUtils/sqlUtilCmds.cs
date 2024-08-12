@@ -10,7 +10,8 @@ namespace ForumFlowServer.CreateTables
         private readonly string createTablesCmd = "SqlUtils/createTables.txt";
 
         private readonly string createTestDataCmd = "SqlUtils/DummyData.txt";
-
+        //private readonly string createTestDataCmd = "TestingPresentation.txt";
+ 
         private static SqliteConnection connection = new SqliteConnection("Data Source=forumflow.db");
 
         /// <summary>
@@ -76,6 +77,35 @@ namespace ForumFlowServer.CreateTables
             }
             }
         }
+
+        public void showAllPresentations(){
+
+            connection.Open();
+
+            using (var command = connection.CreateCommand()){
+                command.CommandText = "SELECT title, description, authorId FROM Presentation";
+                using (var reader = command.ExecuteReader()){
+                    if (reader.HasRows){
+                        while (reader.Read()){
+                            var presentationID = 0;
+                            // var title = reader.GetString(1);
+                            var title = "Test Title";
+                            // var description = GetString(2);
+                            var description = "Test Description";
+                            var authorID = reader.GetInt32(2);
+                            Console.WriteLine($"PresentationID: {presentationID}\n Title: {title}\n Description: {description}\n AuthorID: {authorID}");
+                            Console.WriteLine("-------------------------------------------------");
+                        }
+                    }
+                    else{
+                        Console.WriteLine("No presentations found.");
+                    }
+                }
+            }
+
+
+        }
+
 
 
     }
