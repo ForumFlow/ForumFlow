@@ -10,10 +10,10 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import CreateAccountPage from "./pages/CreateAccountPage";
 import Forum from "./pages/Forum";
+import FaqPage from "./pages/FaqPage";
 import "./index.css";
 
 //a lot of this is legacy code that is now in Forum.jsx, just keeping it here for reference
-
 
 function App() {
   const [comments, setComments] = useState([]);
@@ -54,6 +54,7 @@ function App() {
           <Route path="home" element={<UserHomePage />} />
           <Route path="add-presentation" element={<AddPresentation />} />
           <Route path="forum" element={<Forum />} />
+          <Route path="faq" element={<FaqPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

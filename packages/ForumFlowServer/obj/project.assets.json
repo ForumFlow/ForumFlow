@@ -5845,19 +5845,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Charlie\\.nuget\\packages\\": {}
+    "/home/anthony/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj",
+      "projectUniqueName": "/home/anthony/PersonalProjects/ForumFlow/packages/ForumFlowServer/ForumFlowServer.csproj",
       "projectName": "ForumFlowServer",
-      "projectPath": "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\ForumFlowServer.csproj",
-      "packagesPath": "C:\\Users\\Charlie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Charlie\\ForumFlow\\packages\\ForumFlowServer\\obj\\",
+      "projectPath": "/home/anthony/PersonalProjects/ForumFlow/packages/ForumFlowServer/ForumFlowServer.csproj",
+      "packagesPath": "/home/anthony/.nuget/packages/",
+      "outputPath": "/home/anthony/PersonalProjects/ForumFlow/packages/ForumFlowServer/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Charlie\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/anthony/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -5930,7 +5930,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

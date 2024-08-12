@@ -51,7 +51,7 @@ nav ul li a:hover {
 /* Hero Section */
 #hero {
     background: linear-gradient(to bottom, #032030, #032030, #022B42, #004D74, #006494, #326179, #487996, #81a4b8, #85949c); /* Adjust gradient colors */
-    border-radius: 20px 20px 20px 20px;
+    /* border-radius: 20px 20px 20px 20px; */
     height: 100vh;
     display: flex;
     justify-content: center;
