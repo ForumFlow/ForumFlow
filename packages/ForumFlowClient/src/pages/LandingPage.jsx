@@ -10,29 +10,27 @@ function LandingPage() {
 
   useEffect(() => {
     // TODO - Uncomment this code when the login page is ready
-
-    const jwt = Cookies.get("jwt");
-    async function verifyUser() {
-      const url = "http://localhost:5152/user/verify";
-      await fetch(url, {
-        method: "GET",
-      })
-        .then((response) => {
-          if (response.ok) {
-            navigate("/user/home", { replace: true });
-          } else {
-            Cookies.remove("jwt");
-            console.log("User not verified");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-
-    if (jwt) {
-      verifyUser();
-    }
+    // const jwt = Cookies.get("jwt");
+    // async function verifyUser() {
+    //   const url = "http://localhost:5152/user/verify";
+    //   await fetch(url, {
+    //     method: "GET",
+    //   })
+    //     .then((response) => {
+    //       if (response.ok) {
+    //         navigate("/user/home", { replace: true });
+    //       } else {
+    //         Cookies.remove("jwt");
+    //         console.log("User not verified");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error:", error);
+    //     });
+    // }
+    // if (jwt) {
+    //   verifyUser();
+    // }
   }, []);
 
   const handleRegisterClick = (e) => {
@@ -87,22 +85,38 @@ function LandingPage() {
         <section id="about">
           <h2>About Us</h2>
           <div className="about-content">
-          <div className="about-list">
+            <div className="about-list">
               <h3>Purpose</h3>
-              <p>Ever been to a presentation, only to get shown a generic survey at the end of it? Traditional survey systems lack a feeling of interactivity,
-                and often don't provide enough detail for the presenter to improve.
+              <p>
+                Ever been to a presentation, only to get shown a generic survey
+                at the end of it? Traditional survey systems lack a feeling of
+                interactivity, and often don't provide enough detail for the
+                presenter to improve.
               </p>
-              <p>ForumFlow is here to make presentation feedback better. We provide a presentation feedback system that is more collaborative and conversational for viewers,
-                allowing them to ask questions and provide feedback in real-time.
+              <p>
+                ForumFlow is here to make presentation feedback better. We
+                provide a presentation feedback system that is more
+                collaborative and conversational for viewers, allowing them to
+                ask questions and provide feedback in real-time.
               </p>
               <ul>
-                <li>Allows viewers to ask questions and provide feedback in real-time</li>
-                <li>Provides a more interactive and conversational feedback experience</li>
-                <li>Allows viewers to leave comments, upvote and downvote, showing the Presenter which topics or areas of improvement are most popular</li>
+                <li>
+                  Allows viewers to ask questions and provide feedback in
+                  real-time
+                </li>
+                <li>
+                  Provides a more interactive and conversational feedback
+                  experience
+                </li>
+                <li>
+                  Allows viewers to leave comments, upvote and downvote, showing
+                  the Presenter which topics or areas of improvement are most
+                  popular
+                </li>
               </ul>
-                {/* Add more product list items here */}
-              </div>
+              {/* Add more product list items here */}
             </div>
+          </div>
         </section>
 
         <section id="signup">

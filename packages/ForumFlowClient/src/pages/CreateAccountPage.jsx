@@ -25,6 +25,7 @@ export default function CreateAccountPage() {
       lastName: lastName,
     };
 
+    
     await fetch(url, {
       method: "POST",
       headers: {
