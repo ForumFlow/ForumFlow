@@ -1,11 +1,11 @@
 public class PresentationRequest{
 
-    public int PresentationID {get; set;}
+    public int authorId {get; set;}
 
-    public string? Title {get; set;}
+    public int presentationId {get; set;}
 
-    public string? Description {get; set;}
+    public string? title {get; set;}
 
-    public DateTime? CreatedDate {get; set;} 
+    public string? description {get; set;}
 
 }

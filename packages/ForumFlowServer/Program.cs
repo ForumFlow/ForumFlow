@@ -5,8 +5,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
 using DotNetEnv;
 using ForumFlowServer.JWT;
-
-using System;
+using Microsoft.Data.Sqlite;
+using PresentationDao;
+using UserDao;
 
 namespace MyWebApplication
 {
@@ -14,6 +15,8 @@ namespace MyWebApplication
   class Program
   {
     private static SqlUtil db = new SqlUtil();
+    private static PresentationDao.PresentationDao presentationDao = new();
+    private static UserDao.UserDao userD = new();
     static void Main(string[] args)
     {
 
@@ -33,6 +36,11 @@ namespace MyWebApplication
             break;
           case "showUsers":
             db.showAllUsers();
+            break;
+
+          case "showAllPresentations":
+            Console.WriteLine("Showing all presentations...");
+            db.showAllPresentations();
             break;
           case "testToken":
             var header = "{\"alg\": \"HS256\", \"typ\": \"JWT\"}";

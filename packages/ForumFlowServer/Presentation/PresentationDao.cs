@@ -5,21 +5,19 @@ using System.Security.Cryptography.X509Certificates;
 using PresentationApp;
 
 
+
+
 namespace PresentationDao{
-
-
-
-
     public class PresentationDao{
 
-        private static SqliteConnection connection = new SqliteConnection("Data Source=forum.db");
 
+        private static SqliteConnection connection = new SqliteConnection("Data Source=forumflow.db");
 
-        public bool PresentationExists(int presentationID){
+        public bool PresentationExists(int presentationId){
             connection.Open();
             using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT COUNT(*) FROM Presentations WHERE PresentationId = @presentationId";
-                command.Parameters.AddWithValue("@presentationId", presentationID);
+                command.CommandText = "SELECT * FROM Presentation WHERE presentationId = @presentationId";
+                command.Parameters.AddWithValue("@presentationId", presentationId);
                 var count = Convert.ToInt32(command.ExecuteScalar());
                 connection.Close();
                 return count > 0;
@@ -27,76 +25,86 @@ namespace PresentationDao{
         }
 
 
-        public void CreatePresentation(int presentationID, string title, string description, DateTime createdDate){
+        public void CreatePresentation(string title, string description, int authorId){
+            
+            
             connection.Open();
-            using (var command = connection.CreateCommand()){
-                command.CommandText = "INSERT INTO Presentations (PresentationID, Title, Description, CreateDate) VALUES (@presentationID, @title, @description, @createdDate)";
-                command.Parameters.AddWithValue("@presentationID", presentationID);
-                command.Parameters.AddWithValue("@title", title);
-                command.Parameters.AddWithValue("@description", description);
-                command.Parameters.AddWithValue("@createdDate", createdDate);
-                command.ExecuteNonQuery();
+            try {
+                using (var command = connection.CreateCommand()){
+                    command.CommandText = @"INSERT INTO Presentation (title, description, authorId) VALUES (@title, @description, @authorId)";
+                    command.Parameters.AddWithValue("@title", title);
+                    command.Parameters.AddWithValue("@description", description);              
+                    command.Parameters.AddWithValue("@authorId", authorId);
+                    command.ExecuteNonQuery();
+                }
             }
-            connection.Close();
+
+            finally {
+                connection.Close();
+            }
         }
 
-        public Presentation GetPresentation(int presentationID){
+
+        public Presentation GetPresentation(int presentationId){
             Presentation presentation = null;
+
 
             connection.Open();
 
+
             using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT PresentationID, Title, Description, CreateDate FROM Presentations WHERE PresentationID = @presentationID";
-                command.Parameters.AddWithValue("@presentationID", presentationID);
+                command.CommandText = "SELECT  title, description, authorId FROM Presentation WHERE presentationId = @presentationId";
+                command.Parameters.AddWithValue("@presentationId", presentationId);
                 using (var reader = command.ExecuteReader()){
                     if (reader.Read()){
                         presentation = new Presentation{
-                            PresentationID = reader.GetInt32(0),
-                            Title = reader.GetString(1),
-                            Description = reader.GetString(2),
-                            CreatedDate = reader.GetDateTime(3)
+                            title = reader.GetString(0),
+                            // title = "Testing",
+                            description = reader.GetString(1),
+                            authorId = reader.GetInt32(2)
                         };
                     }
                 }
                 connection.Close();
             }
             return presentation;
-          
+         
         }
 
+        public void DeletePresentation(int presentationId){
 
-
-
-        public void DeletePresentation(int presentationID){
 
             connection.Open();
             using (var command = connection.CreateCommand()){
-                command.CommandText = "DELETE FROM Presentations WHERE PresentationID = @presentationID";
-                command.Parameters.AddWithValue("@presentationID", presentationID);
+                command.CommandText = "DELETE FROM Presentation WHERE presentationId = @presentationId";
+                command.Parameters.AddWithValue("@presentationId", presentationId);
                 command.ExecuteNonQuery();
             }
             connection.Close();
 
+
         }
 
 
-
-
-        public void UpdatePresentation(int presentationID, string title, string description, DateTime updateDate){
+        public void UpdatePresentation(int presentationId, string title, string description, int authorId){
             connection.Open();
 
+
             using (var command = connection.CreateCommand()){
-                command.CommandText = "UPDATE Presentation SET Title = @title, Description = @description, UpdateDate = @updateDate WHERE PresentaionID = @presentationID";
-                command.Parameters.AddWithValue("@presentationID", presentationID);
+                command.CommandText = "UPDATE Presentation SET title = @title, description = @description, authorID = @authorId WHERE presentationId = @presentationId";
+                command.Parameters.AddWithValue("@presentationId", presentationId);
                 command.Parameters.AddWithValue("@title", title);
                 command.Parameters.AddWithValue("@description", description);
-                command.Parameters.AddWithValue("@updateDate", updateDate);
+                command.Parameters.AddWithValue("@authorId", authorId);
                 command.ExecuteNonQuery();
             }
             connection.Close();
         }
 
+
     }
+
+
 
 
 }

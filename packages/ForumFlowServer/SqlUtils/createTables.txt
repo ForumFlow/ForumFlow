@@ -19,7 +19,7 @@ CREATE TABLE Users
 CREATE TABLE Presentation
 (
     authorId INTEGER NOT NULL,
-    ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    presentationId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(255) NOT NULL,
     FOREIGN KEY (authorId) REFERENCES Users(ID) ON DELETE CASCADE
@@ -28,14 +28,14 @@ CREATE TABLE Presentation
 -- Creating the Comment table
 CREATE TABLE Comment
 (
-    presentationId INTEGER NOT NULL,
+    presentationId INTEGER NOT NULL, -- Changed from 'presentId' to 'presentationId'
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     comment VARCHAR(500) NOT NULL,
     depth INT NOT NULL,
     upCount INT NOT NULL DEFAULT 0,
     downCount INT NOT NULL DEFAULT 0,
     commentParent INTEGER,
-    FOREIGN KEY (presentationId) REFERENCES Presentation(ID) ON DELETE CASCADE
+    FOREIGN KEY (presentationId) REFERENCES Presentation(presentationId) ON DELETE CASCADE
 );
 
 -- Creating the Faq table
@@ -45,7 +45,6 @@ CREATE TABLE Faq
     presentationId INTEGER NOT NULL,
     question VARCHAR(1000) NOT NULL,
     answer VARCHAR(1000) NOT NULL,
-    FOREIGN KEY (presentationId) REFERENCES Presentation(ID) ON DELETE CASCADE
-    order INTEGER NOT NULL
+    FOREIGN KEY (presentationId) REFERENCES Presentation(presentationId) ON DELETE CASCADE
 );
 
