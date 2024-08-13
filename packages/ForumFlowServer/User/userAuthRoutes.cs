@@ -42,7 +42,7 @@ namespace ForumFlow.userAuthenticationControllers
     // POST: /user/{username}/{passwordHash}
     // implement authentication with this endpoint
     [HttpGet("verify")]
-    [ValidateJwt]
+    [ValidateJwtAttribute]
     public IActionResult testToken()
     {
       return Ok("This is a secure data response.");

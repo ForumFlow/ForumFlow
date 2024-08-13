@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserHomePage from "./pages/UserHomePage";
 import AddPresentation from "./components/AddPresentation";
@@ -53,7 +53,7 @@ function App() {
           <Route path="create" element={<CreateAccountPage />} />
           <Route path="home" element={<UserHomePage />} />
           <Route path="add-presentation" element={<AddPresentation />} />
-          <Route path="forum" element={<Forum />} />
+          <Route path="createPresentation" element={<Forum />} />
           <Route path="faq" element={<FaqPage />} />
         </Route>
       </Routes>
