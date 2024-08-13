@@ -31,7 +31,7 @@ export default function Login() {
           console.log("Success");
           alert("Account created successfully");
           // Cookies.set("jwt", response.headers.get("Authorization"));
-          console.log(response.headers.get("Authorization"));
+         console.log(response.headers.get("Authorization"));
           response.text().then((text) => {
             Cookies.set("jwt", text);
             console.log(text);

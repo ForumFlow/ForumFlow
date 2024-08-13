@@ -10,7 +10,7 @@ function LandingPage() {
 
   useEffect(() => {
     // TODO - Uncomment this code when the login page is ready
-    // const jwt = Cookies.get("jwt");
+    const jwt = Cookies.get("jwt");
     // async function verifyUser() {
     //   const url = "http://localhost:5152/user/verify";
     //   await fetch(url, {
@@ -31,6 +31,7 @@ function LandingPage() {
     // if (jwt) {
     //   verifyUser();
     // }
+    console.log("jwt", jwt);
   }, []);
 
   const handleRegisterClick = (e) => {
