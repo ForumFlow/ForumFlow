@@ -47,6 +47,25 @@ namespace ForumFlowServer.CreateTables
             // }
         }
 
+        public void CreatePresentation(string title, string description, int authorId){
+            
+            
+            connection.Open();
+            try {
+                using (var command = connection.CreateCommand()){
+                    command.CommandText = "INSERT INTO Presentation (title, description, authorId) VALUES (@title, @description, @authorId)";
+                    command.Parameters.AddWithValue("@title", title);
+                    command.Parameters.AddWithValue("@description", description);              
+                    command.Parameters.AddWithValue("@authorId", authorId);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            finally {
+                connection.Close();
+            }
+        }
+
         /// <summary>
         /// Retrieves and displays information about all users from the database.
         /// // string sqlCommand = "SELECT * FROM Users";
@@ -83,16 +102,16 @@ namespace ForumFlowServer.CreateTables
             connection.Open();
 
             using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT title, description, authorId FROM Presentation";
+                command.CommandText = "SELECT authorId, presentationId, title, description FROM Presentation";
                 using (var reader = command.ExecuteReader()){
                     if (reader.HasRows){
                         while (reader.Read()){
-                            var presentationID = 0;
-                            // var title = reader.GetString(1);
-                            var title = "Test Title";
-                            // var description = GetString(2);
-                            var description = "Test Description";
-                            var authorID = reader.GetInt32(2);
+                            var authorID = reader.GetInt32(0);
+                            var presentationID = reader.GetInt32(1);
+                            var title = reader.GetString(2);
+                            var description = reader.GetString(3);
+                            
+
                             Console.WriteLine($"PresentationID: {presentationID}\n Title: {title}\n Description: {description}\n AuthorID: {authorID}");
                             Console.WriteLine("-------------------------------------------------");
                         }
