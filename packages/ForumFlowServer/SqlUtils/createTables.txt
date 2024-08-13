@@ -28,7 +28,7 @@ CREATE TABLE Presentation
 -- Creating the Comment table
 CREATE TABLE Comment
 (
-    presentationId INTEGER NOT NULL,
+    presentationId INTEGER NOT NULL, -- Changed from 'presentId' to 'presentationId'
     ID INTEGER PRIMARY KEY AUTOINCREMENT,
     comment VARCHAR(500) NOT NULL,
     depth INT NOT NULL,

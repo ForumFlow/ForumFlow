@@ -13,20 +13,20 @@ namespace ForumFlow.PresentationControllers
 
 
         [HttpPost("create")]
-        public ActionResult Create([FromBody] PresentationRequest request)
+        public ActionResult<PresentationRequest> Create([FromBody] PresentationRequest request)
         {
-            if (request == null || request.presentationId <= 0 || string.IsNullOrEmpty(request.title) || string.IsNullOrEmpty(request.description) || request.authorId <= 0)
+            if (request == null || string.IsNullOrEmpty(request.title) || string.IsNullOrEmpty(request.description) || request.authorId <= 0)
             {
                 return BadRequest("Invalid request data");
             }
 
 
-            if (presentationDao.PresentationExists(request.presentationId))
-            {
-                return BadRequest("Presentation already exists");
-            }
+            // if (presentationDao.PresentationExists(request.presentationId))
+            // {
+            //     return BadRequest("Presentation already exists");
+            // }
 
-            presentationDao.CreatePresentation(request.presentationId, request.title, request.description, request.authorId);
+            presentationDao.CreatePresentation(request.title, request.description, request.authorId);
             return Ok("Presentation created successfully");
         }
 

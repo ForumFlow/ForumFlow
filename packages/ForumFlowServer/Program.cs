@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Http;
 using DotNetEnv;
 using ForumFlowServer.JWT;
 using Microsoft.Data.Sqlite;
-
-using System;
+using PresentationDao;
+using UserDao;
 
 namespace MyWebApplication
 {
@@ -15,6 +15,8 @@ namespace MyWebApplication
   class Program
   {
     private static SqlUtil db = new SqlUtil();
+    private static PresentationDao.PresentationDao presentationDao = new();
+    private static UserDao.UserDao userD = new();
     static void Main(string[] args)
     {
 

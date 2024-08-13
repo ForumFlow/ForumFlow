@@ -11,12 +11,12 @@ namespace PresentationDao{
     public class PresentationDao{
 
 
-        private static SqliteConnection connection = new SqliteConnection("Data Source=forum.db");
+        private static SqliteConnection connection = new SqliteConnection("Data Source=forumflow.db");
 
         public bool PresentationExists(int presentationId){
             connection.Open();
             using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT COUNT(*) FROM Presentation WHERE presentationId = @presentationId";
+                command.CommandText = "SELECT * FROM Presentation WHERE presentationId = @presentationId";
                 command.Parameters.AddWithValue("@presentationId", presentationId);
                 var count = Convert.ToInt32(command.ExecuteScalar());
                 connection.Close();
@@ -25,13 +25,13 @@ namespace PresentationDao{
         }
 
 
-        public void CreatePresentation(int presentationId, string title, string description, int authorId){
+        public void CreatePresentation(string title, string description, int authorId){
             
             
             connection.Open();
             try {
                 using (var command = connection.CreateCommand()){
-                    command.CommandText = "INSERT INTO Presentation (title, description, authorId) VALUES (@title, @description, @authorId)";
+                    command.CommandText = @"INSERT INTO Presentation (title, description, authorId) VALUES (@title, @description, @authorId)";
                     command.Parameters.AddWithValue("@title", title);
                     command.Parameters.AddWithValue("@description", description);              
                     command.Parameters.AddWithValue("@authorId", authorId);
@@ -53,16 +53,15 @@ namespace PresentationDao{
 
 
             using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT presentationId, title, description, authorId FROM Presentation WHERE presentationId = @presentationId";
+                command.CommandText = "SELECT  title, description, authorId FROM Presentation WHERE presentationId = @presentationId";
                 command.Parameters.AddWithValue("@presentationId", presentationId);
                 using (var reader = command.ExecuteReader()){
                     if (reader.Read()){
                         presentation = new Presentation{
-                            presentationId = reader.GetInt32(0),
-                            // Title = reader.GetString(1),
-                            title = "Testing",
-                            description = reader.GetString(2),
-                            authorId = reader.GetInt32(3)
+                            title = reader.GetString(0),
+                            // title = "Testing",
+                            description = reader.GetString(1),
+                            authorId = reader.GetInt32(2)
                         };
                     }
                 }
