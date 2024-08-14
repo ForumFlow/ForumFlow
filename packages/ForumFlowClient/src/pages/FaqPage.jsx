@@ -37,13 +37,54 @@ export default function FaqPage() {
     setFaq([
       ...faq,
       {
-        question: "fill",
-        answer: "fill",
+        question: "your question here",
+        answer: "your answer here",
         edit: true,
         displayOption: displayOption,
       },
     ]);
   }
+  async function handleSaveChanges() {
+    const url = "http://localhost:5152/faq/createFaq";
+    
+      const data = {
+        ID: 1,
+        presentationId: 1,
+        question: "test question",
+        answer: "test answer",
+        displayOrder: 1,
+      }
+      await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.ok) {
+          console.log('Success');
+          alert('FAQ created successfully');
+        }
+
+        if (!response.ok) {
+          // When the server responds with a status outside the range 200-299,
+          // we get the response text and handle it in another .then()
+          return response.text().then((text) => {
+            if (text === "User already exists") {
+              alert("Username already exists");
+            } else {
+              console.log("Failed:", text);
+            }
+            throw new Error(text); // Optional: re-throw to handle it in a .catch() if needed
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
   function handleQuestionChange(index, e) {
     setFaq(
       faq.map((item, i) =>
@@ -106,6 +147,7 @@ export default function FaqPage() {
                   <button
                     onClick={() => {
                       handleEdit(index);
+                      handleSaveChanges();
                     }}
                     className="w-fit bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                   >
