@@ -28,6 +28,9 @@ namespace MyWebApplication
             Console.WriteLine("Recreating Tables..");
             db.createTables();
             break;
+          case "showFaqs":
+            db.showAllFaqs();
+            break;
 
           case "insertTestData":
             Console.WriteLine("deleteing tables and inserting test data..");

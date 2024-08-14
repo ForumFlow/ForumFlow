@@ -96,36 +96,36 @@ namespace ForumFlowServer.CreateTables
             }
             }
         }
-
-        public void showAllPresentations(){
-
+        public void showAllFaqs()
+        {
             connection.Open();
 
-            using (var command = connection.CreateCommand()){
-                command.CommandText = "SELECT authorId, presentationId, title, description FROM Presentation";
-                using (var reader = command.ExecuteReader()){
-                    if (reader.HasRows){
-                        while (reader.Read()){
-                            var authorID = reader.GetInt32(0);
-                            var presentationID = reader.GetInt32(1);
-                            var title = reader.GetString(2);
-                            var description = reader.GetString(3);
-                            
-
-                            Console.WriteLine($"PresentationID: {presentationID}\n Title: {title}\n Description: {description}\n AuthorID: {authorID}");
+            using (var command = connection.CreateCommand())
+            {
+                command.CommandText = "SELECT presentationId, question, answer, displayOrder FROM Faq";
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var faqID = reader.GetInt32(0);
+                            var question = reader.GetString(1);
+                            var answer = reader.GetString(2);
+                            var displayOrder = reader.GetInt32(3);
+                            Console.WriteLine($"FaqID: {faqID}\nQuestion: {question}\nAnswer: {answer}\nDisplay Order: {displayOrder}");
                             Console.WriteLine("-------------------------------------------------");
                         }
                     }
-                    else{
-                        Console.WriteLine("No presentations found.");
+                    else
+                    {
+                        Console.WriteLine("No FAQs found.");
                     }
                 }
             }
 
-
+            connection.Close();
         }
-
-
 
     }
 
